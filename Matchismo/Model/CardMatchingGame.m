@@ -71,7 +71,7 @@
 {
     self = [super init];
     if (self) {
-        for (int i = 0 ; i < count - 1; i++) {
+        for (int i = 0 ; i < count; i++) {
             Card *card = [deck drawRandomCard]; //dilwsi neou object
             if (card) { //elegxos gia na min bgoume panw apo to orio tou deck an o allos dwsei panw apo to deck.count
                 self.cards[i] = card; //vazei to object ston pinaka
