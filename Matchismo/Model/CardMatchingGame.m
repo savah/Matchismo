@@ -32,13 +32,12 @@
 {
     NSMutableArray *result = [[NSMutableArray alloc]init];
     Card *card = [self cardAtIndex:index];
-    NSUInteger matchScore = FLIP_COST;
     if (card && !card.isUnplayable) {
         if (!card.isFaceUp) {
             [result addObject:card.contents]; //add first card 
             for (Card *otherCard in self.cards) {
                 if (otherCard.isFaceUp && !otherCard.isUnplayable) {
-                    matchScore = [card match:@[otherCard]];
+                    int matchScore = [card match:@[otherCard]];
                     [result addObject:otherCard.contents]; //add second card
                     if (matchScore) {
                         card.unplayable = YES;
