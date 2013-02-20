@@ -10,6 +10,7 @@
 
 @implementation PlayingCard
 @synthesize suit = _suit; //epeidi grapsame kai ton getter kai ton setter.
+@synthesize rank = _rank; //epeidi grapsame kai ton getter kai ton setter.
 
 
 -(int) match:(NSArray *)othercards
@@ -36,7 +37,7 @@
 
 }
 
-+ (NSArray *) rankStrings {
++ (NSArray *)rankStrings {
     return @[@"?", @"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"];
 }
 
@@ -66,6 +67,10 @@
     if (rank <= [PlayingCard maxRank]) {
         _rank = rank;
     }
+}
+//rank getter
+- (NSUInteger)rank {
+    return _rank ? _rank : 0;
 }
 
 @end

@@ -28,33 +28,40 @@
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
-- (void) flipCardAtIndex:(NSUInteger)index
+- (NSMutableArray *) flipCardAtIndex:(NSUInteger)index
 {
+    NSMutableArray *result = [[NSMutableArray alloc]init];
     Card *card = [self cardAtIndex:index];
-    
+    NSUInteger matchScore = FLIP_COST;
     if (card && !card.isUnplayable) {
         if (!card.isFaceUp) {
+            [result addObject:card.contents]; //add first card 
             for (Card *otherCard in self.cards) {
                 if (otherCard.isFaceUp && !otherCard.isUnplayable) {
-                    int matchScore = [card match:@[otherCard]];
+                    matchScore = [card match:@[otherCard]];
+                    [result addObject:otherCard.contents]; //add second card
                     if (matchScore) {
                         card.unplayable = YES;
                         otherCard.unplayable = YES;
                         self.score += matchScore * MATCH_BONUS;
+                        [result addObject:[NSNumber numberWithInt:self.score]];
                     }
                     else {
                         otherCard.FaceUp = NO;
                         self.score -= matchScore * MISMATCH_PENALTY;
+                        [result addObject:[NSNumber numberWithInt:2]];
                     }
                     break;
                 }
             }
         self.score -=FLIP_COST;
+            
         }
 
         card.faceUp = !card.faceUp;
     }
     
+    return result;
 }
 
 - (Card *) cardAtIndex:(NSUInteger)index
